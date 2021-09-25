@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа 1</title>
+</head>
+
+<body>
+    <div style="max-width: 1100px; margin: auto;">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea doloribus obcaecati beatae, non
+        voluptatibus adipisci, velit ullam natus nulla culpa nesciunt laborum omnis nemo corporis fuga, dolores sequi
+        aliquid maxime expedita. Iste ratione hic quam, aliquam accusantium libero saepe? Qui repellendus similique
+        consectetur impedit. Iste illo magni assumenda, quod voluptatum labore reiciendis iure natus porro adipisci
+        alias repellendus expedita fugit est facere corporis magnam? Earum corrupti repellendus quibusdam ipsa sed
+        deserunt ut aut fugit laborum? Inventore non ullam nostrum minus neque aliquid tenetur officiis aliquam
+        aspernatur, reprehenderit dicta ad perspiciatis accusantium illo animi molestias. Pariatur quam quaerat ex
+        accusantium!</br>
+        <input type="text" placeholder="пароль" id="pass">
+        <button id="passBtn">Открыть доступ</button>
+    </div>
+</body>
+<script>
+    const password = "aXRpc3Bhc3N3b3Jk";
+
+    const btn = document.getElementById("passBtn");
+    const input = document.getElementById("pass");
+    document.ondragstart = notOk;
+    document.onselectstart = notOk;
+    document.oncontextmenu = notOk;
+    btn.addEventListener("click", () => {
+        enterPass(input.value)
+    })
+    
+    const enterPass = (pass) => {
+        pass = window.btoa(pass);
+        if (pass == password) {
+            console.log("Верный пароль, можете воровать");
+            document.ondragstart = ok;
+            document.onselectstart = ok;
+            document.oncontextmenu = ok;
+            document.removeEventListener("keyup", prSc);
+            document.removeEventListener('keydown', save);
+        } else {
+            console.log("Неверный пароль");
+        }
+    }
+
+    function ok() {
+        return true;
+    }
+    function notOk() {
+        return false;
+    }
+
+    const prSc = e => {
+        if (e.key == 'PrintScreen') {
+            navigator.clipboard.writeText("Не воруй)))");
+        }
+    }
+
+    const save = e => {
+        if (e.code == 'KeyS' && e.ctrlKey) {
+            e.preventDefault();
+        }
+    }
+
+    document.addEventListener("keyup", prSc);
+    document.addEventListener('keydown', save);
+
+
+</script>
+
+</html>
